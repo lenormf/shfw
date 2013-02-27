@@ -27,3 +27,20 @@ function networkDisconnect {
 	exec "$1"<&-
 	exec "$1">&-
 }
+
+function networkReadBinary {
+    dd bs="$1" count="$2" <&"$3" 2>/dev/null
+}
+
+function networkServerIsUp() {
+	timestamp=$(date +%s)
+	timestop=$((timestamp + "$4"))
+
+	while [ $(date +%s) -le $timestop ];
+	do
+	    networkConnect "$1" "$2" "$3" && networkDisconnect "$3" && return 1
+	    sleep 1
+	done
+	
+	return 0
+}
