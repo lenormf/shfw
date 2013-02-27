@@ -78,6 +78,11 @@ function test_10 {
 	test $(urlEncode "$RESERVED_CHARS") = '%23%24%26%27%2B%2C%2F%3A%3B%3D%3F%40%5B%5D' || exit 1
 }
 
+function test_11 {
+    local array=( "On m'a" "tendu des perches" "et j'ai su" "les saisir" )
+    test $(arrayPosItem "tendu des perches" array[@]) = '1'  || exit 1
+}
+
 function main {
 	for i in $(seq 99); do
 		local id=$(printf '%2d' $i | sed 's/ /0/g')
