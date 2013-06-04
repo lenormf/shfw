@@ -16,3 +16,8 @@ function fileGetLine {
 function fileLinesNumber {
 	sed -n '$=' "$1"
 }
+
+function fileExists {
+	test -f "$1"
+	return
+}
