@@ -4,26 +4,32 @@
 ##
 
 function networkConnect {
-	exec $1<>"/dev/tcp/${2}/${3}"
+	eval "exec ${1}<>/dev/tcp/${2}/${3}"
 }
 
 function networkSend {
-	echo "$2" >&"$1"
+	local fd="$1"
+
+	shift
+	eval "echo \"$@\" >&${fd}"
 }
 
 function networkRead {
-	read l <&"$1"
+	eval "read l <&${1}"
 
 	echo "$l"
 }
 
 function networkReadAll {
-	while read l; do
-		$2 "$l"
-	done <&"$1"
+	local fd="$1"
+
+	shift
+	eval "while read l; do $@ \"$l\" done <&${fd}"
 }
 
 function networkDisconnect {
-	exec "$1"<&-
-	exec "$1">&-
+	eval "exec ${1}<&-; exec ${1}>&-"
 }
+
+test -c /dev/tcp || { echo "No /dev/tcp node detected"; exit 1; }
+test -c /dev/udp || { echo "No /dev/udp node detected"; exit 1; }
