@@ -16,19 +16,21 @@ function strForEach {
 }
 
 function strToLower {
-	echo "$1" | tr '[A-Z]' '[a-z]'
+	local -l low="$@"
+	echo "$low"
 }
 
 function strToUpper {
-	echo "$1" | tr '[a-z]' '[A-Z]'
+	local -u up="$@"
+	echo "$up"
 }
 
 function strAsc {
-	printf '%d' "'$1" && echo
+	printf '%d' "'$@" && echo
 }
 
 function strOrd {
-	printf '\x'$(printf '%x' "$1") && echo
+	printf '\x'$(printf '%x' "$@") && echo
 }
 
 function strCount {
