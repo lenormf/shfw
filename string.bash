@@ -26,11 +26,15 @@ function strToUpper {
 }
 
 function strAsc {
-	printf '%d' "'$@" && echo
+	printf '%d\n' "'$@"
+}
+
+function strHex {
+	printf '%x\n' "$@"
 }
 
 function strOrd {
-	printf '\x'$(printf '%x' "$@") && echo
+	printf '\x'$(strHex "$@")'\n'
 }
 
 function strCount {

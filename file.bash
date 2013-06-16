@@ -19,5 +19,4 @@ function fileLinesNumber {
 
 function fileExists {
 	test -f "$1"
-	return
 }
