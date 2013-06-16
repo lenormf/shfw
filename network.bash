@@ -11,11 +11,20 @@ function networkSend {
 	local fd="$1"
 
 	shift
-	eval "echo \"$@\" >&${fd}"
+	eval "echo -en \"$@\" >&${fd}"
 }
 
 function networkRead {
 	eval "read l <&${1}"
+
+	echo "$l"
+}
+
+function networkReadTimeout {
+	local fd="$1"
+
+	shift
+	eval "read -t \"$@\" l <&${fd}"
 
 	echo "$l"
 }
