@@ -33,7 +33,7 @@ function atexit {
 
 	eval "function $f() { $@; }"
 
-	trap "$f" EXIT && at_number=$((atexit_cbs + 1))
+	trap "$f" EXIT && atexit_cbs=$((atexit_cbs + 1))
 }
 
 atexit_cbs=0
